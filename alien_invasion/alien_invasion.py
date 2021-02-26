@@ -1,5 +1,5 @@
-import sys
 import pygame
+import game_functions as gf
 from settings import Settings
 from ship import Ship
 
@@ -17,18 +17,11 @@ def run_game():
     pygame.display.set_caption("Alvien Invasion")
    
     #创建飞船
-    ship = Ship(screen)
+    ship = Ship(game_settings,screen)
 
     #主游戏
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        #填充背景
-        screen.fill(game_settings.background_color)
-        #绘制飞船
-        ship.blitme()
-        #刷新屏幕
-        pygame.display.flip()
-
+        gf.check_events(ship)
+        ship.update()
+        gf.update_screen(game_settings,screen,ship)
 run_game()
